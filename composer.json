@@ -12,7 +12,7 @@
     }
   ],
   "require": {
-    "phpmailer/phpmailer": "5.2.1"
+    "phpmailer/phpmailer": "~5.2.0"
   },
   "minimum-stability": "dev",
   "extra": {
