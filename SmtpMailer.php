@@ -16,7 +16,7 @@ class SmtpMailer extends Mailer {
 	protected function instanciate(){
 		//due to throttling on some services (i.e. AWS SES) we should make the sender pause
 		$this->sendDelay = defined('SMTPMAILER_SEND_DELAY') ? SMTPMAILER_SEND_DELAY : 0;
-		
+
 		if($this->mailer == null){
 			$this->mailer = new PHPMailer(true);
 			$this->mailer->IsSMTP();
@@ -98,9 +98,7 @@ class SmtpMailer extends Mailer {
 
 
 	function handleError($msg, $msgForLog){
-		echo $msg;
-		Debug::log($msg . $msgForLog);
-		die();
+		SS_Log::log($msg . $msgForLog, SS_Log::WARN);
 	}
 
 
