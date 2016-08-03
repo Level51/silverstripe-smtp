@@ -1,5 +1,4 @@
 <?php
 
-Email::set_mailer(
-	new SmtpMailer()
-);
+// Register as default mailer
+Injector::inst()->registerService(new SmtpMailer(), 'Mailer');

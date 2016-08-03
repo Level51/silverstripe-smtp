@@ -1,0 +1,21 @@
+{
+  "name": "level51/silverstripe-smtp",
+  "version": "0.1.0",
+  "time": "2016-08-03",
+  "description": "Using PHPMailer with SilverStripe.",
+  "type": "silverstripe-module",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Julian Scheuchenzuber",
+      "email": "js@lvl51.de"
+    }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "5.2.1"
+  },
+  "minimum-stability": "dev",
+  "extra": {
+    "installer-name": "smtp-mailer"
+  }
+}
