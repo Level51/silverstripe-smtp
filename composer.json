@@ -1,7 +1,7 @@
 {
   "name": "level51/silverstripe-smtp",
-  "version": "0.1.1",
-  "time": "2016-12-05",
+  "version": "0.1.2",
+  "time": "2017-08-24",
   "description": "Using PHPMailer with SilverStripe.",
   "type": "silverstripe-module",
   "license": "BSD-3-Clause",
