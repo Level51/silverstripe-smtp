@@ -3,7 +3,7 @@
 
 class SmtpMailer extends Mailer {
 	var $mailer = null;
-	
+
 	private $sendDelay = 0;
 
 
@@ -72,13 +72,13 @@ class SmtpMailer extends Mailer {
 			$customheaders['X-SMTPAPI'] = '{"category": "' . $_SERVER['HTTP_HOST'] . '"}'; // Add the current domain for services like SendGrid
 			$this->addCustomHeaders($customheaders);
 			$this->attachFiles($attachedFiles);
-			
+
 			//due to AWS SES, sometimes we need to throttle out e-mail delivery
 			if ($this->sendDelay > 0)
 			{
 				usleep($this->sendDelay * 1000);//we want milliseconds, not microseconds
 			}
-			
+
 			$this->mailer->Send();
 
 			if($this->mailer->SMTPDebug > 0){
@@ -86,7 +86,7 @@ class SmtpMailer extends Mailer {
 				echo "<em><strong>*** The debug mode blocked the process</strong> to avoid the url redirection. So the CC e-mail is not sent.</em>";
 				die();
 			}
-			
+
 			return true; // return true if everything worked.
 
 		} catch(phpmailerException $pe){
@@ -134,7 +134,18 @@ class SmtpMailer extends Mailer {
 
 		$this->mailer->ClearCustomHeaders();
 
-                //Convert cc/bcc/ReplyTo from headers to properties
+        // Check if some headers should be cleared (defined in the config)
+        if ($headersToClear = Config::inst()->get('SmtpMailer', 'clear_headers')) {
+            foreach ($headersToClear as $headerName) {
+                unset($headers[$headerName]);
+
+                // Also reset the default "PHPMailer..." X-Mailer entry (must be set to a whitespace)
+                if ($headerName == 'X-Mailer')
+                    $this->mailer->XMailer = ' ';
+            }
+        }
+
+        //Convert cc/bcc/ReplyTo from headers to properties
 		foreach($headers as $header_name => $header_value){
                   if(in_array(strtolower($header_name), array('cc', 'bcc', 'reply-to', 'replyto'))){
                     $addresses = preg_split('/(,|;)/', $header_value);

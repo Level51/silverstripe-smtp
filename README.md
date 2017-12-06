@@ -45,6 +45,12 @@ define('SMTPMAILER_LANGUAGE_OF_MESSAGES', 'de'); //Language for messages. Look i
 define('SMTPMAILER_SEND_DELAY', 2000);//throttling, in milliseconds, can also be 0
 ```
 
+### Clear some custom headers
+```yaml
+SmtpMailer:
+  clear_headers: ['X-Mailer', 'X-Priority', 'X-SilverStripeSite']
+```
+
 ## License
     Copyright (c) 2008 Renaud Merle, 2012 Philipp Krenn
     All rights reserved.
